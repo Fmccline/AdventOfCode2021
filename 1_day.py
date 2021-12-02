@@ -2,7 +2,7 @@ import util
 DAY_1_FILE = 'day1_input.txt'
 test_data = [199,200,208,210,200,207,240,269,260,263]
 
-
+# Part 1
 def count_inc_depths(depths):
     if len(depths) < 2:
         return 0
@@ -17,6 +17,7 @@ def count_inc_depths(depths):
     return num
 
 
+# Part 2
 def sliding_window_depths(depths):
     if len(depths) < 2:
         return 0
