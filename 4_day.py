@@ -32,15 +32,26 @@ class Board:
         return self.is_winner
 
 
-def play_bingo(numbers, boards):
-    winning_score = 0
+def play_bingo(numbers, boards, is_trying):
+    winning_score = -1
+    won_boards = set()
     for number in numbers:
         for board in boards:
+            if board in won_boards:
+                continue
+
             board.add_bingo_num(number)
-            if board.has_won() and board.get_sum()*number > winning_score:
-                winning_score = board.get_sum()*number
-        if winning_score > 0:
+            if board.has_won():
+                board_score = board.get_sum()*number
+                if is_trying and board_score > winning_score:
+                    winning_score = board_score
+                elif not is_trying:
+                    winning_score = board_score
+                won_boards.add(board)
+                
+        if is_trying and winning_score > 0:
             break
+
     return winning_score
     
 
@@ -70,18 +81,25 @@ def print_boards(boards):
         print()
 
 
-if __name__ == '__main__':
-    is_test = False
-    input_file = TEST_INPUT_FILE if is_test else INPUT_FILE
-    data = util.read_input(input_file)
+def make_boards(data):
     matrix_boards = make_matrix_boards(data)
     boards = []
     for matrix_board in matrix_boards:
         board = Board(matrix_board)
         boards.append(board)
 
+    return boards
+    
+
+if __name__ == '__main__':
+    is_test = False
+    input_file = TEST_INPUT_FILE if is_test else INPUT_FILE
+    data = util.read_input(input_file)
+    
     numbers = data[0].split(',')
     numbers = [int(number) for number in numbers]
-    
-    print(play_bingo(numbers, boards))
+
+    print(play_bingo(numbers, make_boards(data), True))
+    print(play_bingo(numbers, make_boards(data), False))
+
 
