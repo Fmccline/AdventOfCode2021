@@ -30,6 +30,34 @@ def get_epsilon_rate(gamma_rate):
     return eps_rate
 
 
+def get_gas_rating(bits_list, is_oxygen):
+    gas_rating = 0
+    common_bits = bits_list
+    for bit_idx in range(len(bits_list[0])):
+        common_bits = get_common_bits(common_bits, bit_idx, is_oxygen)
+        if len(common_bits) == 1:
+            gas_rating = int(common_bits[0], 2)
+            break
+    return gas_rating
+
+
+def get_life_support_rating(bits_list):
+    oxy_rating = get_gas_rating(bits_list, True)
+    co2_rating = get_gas_rating(bits_list, False)
+    return oxy_rating, co2_rating, oxy_rating*co2_rating
+
+
+def get_common_bits(bits_list, bit_idx, is_oxygen):
+    common_bits = {'0': [], '1': []}
+    for bits in bits_list:
+        common_bits[bits[bit_idx]].append(bits)
+    if is_oxygen:
+        return common_bits['0'] if len(common_bits['1']) < len(common_bits['0']) else common_bits['1']
+    else:
+        return common_bits['1'] if len(common_bits['1']) < len(common_bits['0']) else common_bits['0']
+
+
+
 if __name__ == '__main__':
     is_test = False
     data = TEST_DATA
@@ -40,7 +68,8 @@ if __name__ == '__main__':
     gamma_rate = get_gamma_rate(bit_count)
     epsilon_rate = get_epsilon_rate(gamma_rate)
     print('Epsilon * Gamma = ' + str(int(epsilon_rate, 2) * int(gamma_rate, 2)))
-
+    print(f'(Oxygen rating, CO2 rating, Life support rating) : {get_life_support_rating(data)}')
+    
     if is_test:
         print(bit_count)
         print("Gamma")
