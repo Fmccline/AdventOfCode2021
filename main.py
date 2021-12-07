@@ -3,14 +3,15 @@ day1 = __import__('1_day')
 day2 = __import__('2_day')
 day3 = __import__('3_day')
 day4 = __import__('4_day')
-
+day5 = __import__('5_day')
 
 
 TEST_CASES = {
     1: (day1.AoCDay1(), (7, 5), (1400, 1429)),
     2: (day2.AoCDay2(), (150, 900), (2117664, 2073416724)),
     3: (day3.AoCDay3(), (198, 230), (3959450, 7440311)),
-    4: (day4.AoCDay4(), (4512, 1924), (44088, 23670))
+    4: (day4.AoCDay4(), (4512, 1924), (44088, 23670)),
+    5: (day5.AoCDay5(), (5, -1), (-1, -1))
 }
 
 
