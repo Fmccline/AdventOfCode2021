@@ -23,7 +23,6 @@ class AoCDay3(AoCDay):
         gamma_rate = self.get_gamma_rate(bit_count)
         epsilon_rate = self.get_epsilon_rate(gamma_rate)
         consumption_rate = int(epsilon_rate, 2) * int(gamma_rate, 2)
-        print(f'Epsilon * Gamma = {consumption_rate}')
         return consumption_rate
 
     def get_bit_count(self):
