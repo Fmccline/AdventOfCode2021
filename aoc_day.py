@@ -6,8 +6,9 @@ class AoCDay:
 
     def __init__(self, day_num) -> None:
         self.day_num = day_num
-        self.input_test_file = f'day{day_num}_test_input.txt'
-        self.input_file = f'day{day_num}_input.txt'
+        path = './input_files/'
+        self.input_test_file = f'{path}day{day_num}_test_input.txt'
+        self.input_file = f'{path}day{day_num}_input.txt'
 
     def get_solutions(self, is_test):
         input_file = self.input_test_file if is_test else self.input_file
