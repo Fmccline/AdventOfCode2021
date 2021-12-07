@@ -1,4 +1,3 @@
-from typing import List
 from aoc_day import AoCDay
 
 
@@ -8,14 +7,13 @@ class AoCDay3(AoCDay):
         super().__init__(3)
         self.bits_list = []
 
-    def setup_data(self, data) -> List:
+    def setup_data(self, data):
         self.bits_list = data
-        return data
 
-    def solve_part_one(self, data) -> None:
+    def solve_part_one(self):
         return self.get_power_consumption_rate()
 
-    def solve_part_two(self, data) -> None:
+    def solve_part_two(self):
         return self.get_life_support_rating()
 
     def get_power_consumption_rate(self):

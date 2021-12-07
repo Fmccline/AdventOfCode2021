@@ -20,12 +20,11 @@ class AoCDay2(AoCDay):
             value = int(commands[1])
             normalized.append((command, value))
         self.commands = normalized
-        return normalized
 
-    def solve_part_one(self, data):
+    def solve_part_one(self):
         return self.get_position()
 
-    def solve_part_two(self, data):
+    def solve_part_two(self):
         return self.get_position_with_aim()
 
     def get_position(self):

@@ -12,12 +12,11 @@ class AoCDay1(AoCDay):
     def setup_data(self, data):
         for str_num in data:
             self.depths.append(int(str_num))
-        return data
 
-    def solve_part_one(self, data):
+    def solve_part_one(self):
         return self.count_inc_depths()
 
-    def solve_part_two(self, data):
+    def solve_part_two(self):
         return self.sliding_window_depths()
 
     # Part 1
@@ -48,14 +47,3 @@ class AoCDay1(AoCDay):
             if curr < next:
                 inc += 1
         return inc
-
-
-# if __name__ == '__main__':
-#     testing = False
-#     depths = test_data
-#     if not testing:
-#         depths = util.read_input(DAY_1_FILE)
-#         for idx in range(len(depths)):
-#             depths[idx] = int(depths[idx])
-
-#     print(sliding_window_depths(depths))

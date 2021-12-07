@@ -35,22 +35,23 @@ class AoCDay4(AoCDay):
     def __init__(self) -> None:
         super().__init__(4)
         self.numbers = []
+        self.data = []
 
-    def solve_part_one(self, data):
-        score = self.play_bingo(data, True)
+    def solve_part_one(self):
+        score = self.play_bingo(True)
         return score
 
-    def solve_part_two(self, data):
-        score = self.play_bingo(data, False)
+    def solve_part_two(self):
+        score = self.play_bingo(False)
         return score
 
     def setup_data(self, data):
         numbers = data[0].split(',')
         self.numbers = [int(number) for number in numbers]
-        return data[2:]
+        self.data = data[2:]
 
-    def play_bingo(self, data, is_trying):
-        boards = self.make_boards(data)
+    def play_bingo(self, is_trying):
+        boards = self.make_boards()
         numbers = self.numbers
         winning_score = -1
         won_boards = set()
@@ -73,10 +74,10 @@ class AoCDay4(AoCDay):
 
         return winning_score
 
-    def make_matrix_boards(self, data):
+    def make_matrix_boards(self):
         boards = []
         board = []
-        for line in data:
+        for line in self.data:
             if len(line) <= 1:
                 boards.append(board)
                 board = []
@@ -88,8 +89,8 @@ class AoCDay4(AoCDay):
         boards.append(board)
         return boards
 
-    def make_boards(self, data):
-        matrix_boards = self.make_matrix_boards(data)
+    def make_boards(self):
+        matrix_boards = self.make_matrix_boards()
         boards = []
         for matrix_board in matrix_boards:
             board = Board(matrix_board)
