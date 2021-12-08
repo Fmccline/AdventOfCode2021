@@ -1,35 +1,30 @@
 from aoc_day import AoCDay
 
 
+class FishStates:
 
-class LanternFish:
-
-    def __init__(self, state) -> None:
-        self.state = state
-        self.children = []
+    def __init__(self, starting_fish):
+        self.states = [0 for _ in range(9)]
+        for fish_num in starting_fish:
+            self.states[fish_num] += 1
 
     def add_days(self, days):
         for _ in range(days):
             self.add_day()
 
     def add_day(self):
-        self.state -= 1
-        for child in self.children:
-            child.add_day()
-        if self.state < 0:
-            self.children.append(LanternFish(8))
-            self.state = 6
+        for idx in range(len(self.states) - 1):
+            self.states[idx], self.states[idx+1] = self.states[idx+1], self.states[idx]
+        self.states[6] += self.states[8]
 
-    def get_total_fish(self):
-        total = 1
-        for child in self.children:
-            total += child.get_total_fish()
+    def get_total(self):
+        total = 0
+        for state in self.states:
+            total += state
         return total
 
 
 class AoCDay6(AoCDay):
-
-    DAYS = 80
 
     def __init__(self) -> None:
         super().__init__(6)
@@ -38,17 +33,20 @@ class AoCDay6(AoCDay):
     def setup_data(self, data):
         for num in data[0].split(','):
             state = int(num)
-            self.starting_fish.append(LanternFish(state))
+            self.starting_fish.append(state)
 
     def solve_part_one(self):
-        total = 0
-        for fish in self.starting_fish:
-            fish.add_days(self.DAYS)
-            total += fish.get_total_fish()
+        DAYS = 80
+        fish_states = FishStates(self.starting_fish)
+        fish_states.add_days(DAYS)
+        total = fish_states.get_total()
         return total
 
     def solve_part_two(self):
-        return None
-
+        DAYS = 256
+        fish_states = FishStates(self.starting_fish)
+        fish_states.add_days(DAYS)
+        total = fish_states.get_total()
+        return total
     
 
