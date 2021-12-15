@@ -10,8 +10,7 @@ day8 = __import__('8_day')
 day9 = __import__('9_day')
 day10 = __import__('10_day')
 day11 = __import__('11_day')
-
-
+day12 = __import__('12_day')
 
 
 TEST_CASES = { # (test part 1, test part 2), (answer part 1, answer part 2)
@@ -25,7 +24,8 @@ TEST_CASES = { # (test part 1, test part 2), (answer part 1, answer part 2)
     8: (day8.AoCDay8(), (26, 61229), (288, 940724)),
     9: (day9.AoCDay9(), (15, 1134), (603, 786780)),
     10: (day10.AoCDay10(), (26397, 288957), (358737, 4329504793)),
-    11: (day11.AoCDay11(), (1656, 195), (1683, 788))
+    11: (day11.AoCDay11(), (1656, 195), (1683, 788)),
+    12: (day12.AoCDay12(), (226, -1), (5228, -1))
 }
 
 
