@@ -60,11 +60,16 @@ class AoCDay11(AoCDay):
     def __init__(self):
         super().__init__(11)
         self.octopi = []
+        self.data = []
 
     def setup_data(self, data):
+        self.data = data
+        
+    def setup_octopi(self):
+        self.octopi = []
         matrix = []
         octo_matrix = []
-        for line in data:
+        for line in self.data:
             row = [int(c) for c in line]
             matrix.append(row)
         for row in range(len(matrix)):
@@ -77,12 +82,13 @@ class AoCDay11(AoCDay):
         for octo in self.octopi:
             octo.add_children(octo_matrix)
 
-
     def solve_part_one(self):
+        self.setup_octopi()
         return self.get_flashes_after_100_steps()
 
     def solve_part_two(self):
-        return None
+        self.setup_octopi()
+        return self.get_steps_to_all_flashing()
 
     def get_flashes_after_100_steps(self):
         flashes = 0
@@ -102,3 +108,19 @@ class AoCDay11(AoCDay):
             matrix[octo.row][octo.col] = octo.state
         for row in matrix:
             print(row)
+
+    def get_steps_to_all_flashing(self):
+        steps = 0
+        while steps < 1000: # Arbitrary, could be while True
+            flashes = 0
+            flashers = []
+            steps += 1
+            for octo in self.octopi:
+                octo.add_one()
+                if octo.state > 9:
+                    flashers.append(octo)
+            for octo in flashers:
+                flashes += octo.get_flashes()
+            if flashes == 100:
+                break
+        return steps
