@@ -13,18 +13,23 @@ class Cave:
     def is_big(self):
         return str.isupper(self.label[0])
 
-    def get_paths_to_end(self, curr_path, all_paths=set()):
+    def get_paths_to_end(self, curr_path, double_singled=True, all_paths=set()):
+        '''
+            double_singled: bool to signify if a small cave has been visited twice yet in the path
+        '''
         if self.label == 'end':
             curr_path = (*curr_path, 'end')
             all_paths.add(curr_path)
             return all_paths
 
         for edge in self.edges:
-            if curr_path and edge.label == curr_path[-1]:
-                continue
             if edge.label in curr_path and not edge.is_big():
+                if not double_singled and edge.label != 'start' and edge.label != 'end':
+                    edge.get_paths_to_end((*curr_path, edge.label), True, all_paths)
+            elif edge.label == curr_path[-1]:
                 continue
-            edge.get_paths_to_end((*curr_path, edge.label), all_paths)
+            else:
+                edge.get_paths_to_end((*curr_path, edge.label), double_singled, all_paths)
         return all_paths
 
 
@@ -51,4 +56,5 @@ class AoCDay12(AoCDay):
         return len(all_paths)
 
     def solve_part_two(self):
-        return None
+        all_paths = self.caves['start'].get_paths_to_end(('start',), False)
+        return len(all_paths)
